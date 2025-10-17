@@ -8,6 +8,6 @@ This extension allows users to generate a printable VGC team sheet directly from
 - Generates a downloadable PDF ready for printing.
 
 ## Credits
-Made with ❤️ by [kasp470f](https://github.com/kasp470f)
+Made with ❤️ by [Kasper Wissendorf](https://github.com/kasp470f)
 
 A special thanks to [alchemistake](https://github.com/alchemistake) for creating the original PDF template.
