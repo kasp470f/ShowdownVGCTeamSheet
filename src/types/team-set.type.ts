@@ -8,10 +8,7 @@ export interface PokemonSet {
 	evs: Stats;
 	ivs: Stats;
 	level: number;
-	hpType: string;
-	pokeball: string;
 	gigantamax: boolean;
-	dynamaxLevel: number;
 	teraType: string;
 }
 
