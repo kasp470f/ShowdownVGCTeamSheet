@@ -1,28 +1,31 @@
 {
-  "name": "browser-extension",
-  "version": "1.0.0",
-  "description": "A simple browser extension built with TypeScript.",
-  "main": "src/background.ts",
-  "scripts": {
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "start": "webpack serve"
-  },
-  "keywords": [
-    "browser",
-    "extension",
-    "typescript"
-  ],
-  "author": "Your Name",
-  "license": "MIT",
-  "devDependencies": {
-    "@types/chrome": "^0.1.24",
-    "ts-loader": "^8.0.0",
-    "typescript": "^4.0.0",
-    "webpack": "^5.102.1",
-    "webpack-cli": "^5.1.4"
-  },
-  "dependencies": {
-    "pdf-lib": "^1.17.1"
-  }
+	"name": "showdown-vgc-team-sheet-extension",
+	"version": "0.1.0",
+	"description": "An extension to export team to a VGC sheet on Pokémon Showdown.",
+	"main": "src/background.ts",
+	"scripts": {
+		"build": "webpack",
+		"watch": "webpack --watch",
+		"start": "webpack serve",
+		"format": "prettier --write ."
+	},
+	"keywords": [
+		"browser",
+		"extension",
+		"typescript"
+	],
+	"author": "Kasper Wissendorf",
+	"license": "MIT",
+	"devDependencies": {
+		"@types/chrome": "^0.1.24",
+		"copy-webpack-plugin": "^13.0.1",
+		"prettier": "3.6.2",
+		"ts-loader": "^8.0.0",
+		"typescript": "^4.0.0",
+		"webpack": "^5.102.1",
+		"webpack-cli": "^5.1.4"
+	},
+	"dependencies": {
+		"pdf-lib": "^1.17.1"
+	}
 }

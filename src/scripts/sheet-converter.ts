@@ -4,53 +4,52 @@ import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet.type";
 import { statEvaluator } from "../utils/statEvaluator";
 
 export function getVGCSheet(teamSetList: PokemonSet[], dex: any) {
-    var teamDexIds = teamSetList.map(set => set.species)
-    if (teamDexIds.length === 0) return;
+	var teamDexIds = teamSetList.map((set) => set.species);
+	if (teamDexIds.length === 0) return;
 
-    var speciesData = teamDexIds.map(id => dex.get(id) as PokemonDex);
-    if (speciesData.length === 0) return;
+	var speciesData = teamDexIds.map((id) => dex.get(id) as PokemonDex);
+	if (speciesData.length === 0) return;
 
-    if (speciesData.length !== teamSetList.length) {
-        console.error('Mismatch between species data and team set list lengths');
-        return;
-    }
+	if (speciesData.length !== teamSetList.length) {
+		console.error("Mismatch between species data and team set list lengths");
+		return;
+	}
 
-    var vgcSheetData: VGCSheet = [];
+	var vgcSheetData: VGCSheet = [];
 
-    for (var pokemon in teamSetList) {
-        var set = teamSetList[pokemon];
-        var species = speciesData[pokemon];
+	for (var pokemon in teamSetList) {
+		var set = teamSetList[pokemon];
+		var species = speciesData[pokemon];
 
-        var vgcPokemon = createVGCSheetPokemon(set, species);
-        vgcSheetData.push(vgcPokemon);
-    }
+		var vgcPokemon = createVGCSheetPokemon(set, species);
+		vgcSheetData.push(vgcPokemon);
+	}
 
-    return vgcSheetData;
+	return vgcSheetData;
 }
 
-
 function createVGCSheetPokemon(set: PokemonSet, species: PokemonDex): VGCSheetPokemon {
-    const vgcPokemon: VGCSheetPokemon = {
-        name: set.species,
-        tera: set.teraType ?? species.types[0],
-        ability: set.ability,
-        item: set.item,
-        moves: set.moves,
-        level: set.level,
-        stats: {} as Stats
-    };
+	const vgcPokemon: VGCSheetPokemon = {
+		name: set.species,
+		tera: set.teraType ?? species.types[0],
+		ability: set.ability,
+		item: set.item,
+		moves: set.moves,
+		level: set.level,
+		stats: {} as Stats,
+	};
 
-    const statKeys: (keyof Stats)[] = ['hp', 'atk', 'def', 'spa', 'spd', 'spe'];
-    for (const statKey of statKeys) {
-        vgcPokemon.stats[statKey] = statEvaluator(
-            statKey,
-            species.baseStats[statKey],
-            set.ivs[statKey] ?? 0,
-            set.evs[statKey] ?? 0,
-            set.level,
-            set.nature.length > 0 ? set.nature : 'Serious'
-        );
-    }
+	const statKeys: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"];
+	for (const statKey of statKeys) {
+		vgcPokemon.stats[statKey] = statEvaluator(
+			statKey,
+			species.baseStats[statKey],
+			set.ivs[statKey] ?? 0,
+			set.evs[statKey] ?? 0,
+			set.level,
+			set.nature.length > 0 ? set.nature : "Serious",
+		);
+	}
 
-    return vgcPokemon;
+	return vgcPokemon;
 }

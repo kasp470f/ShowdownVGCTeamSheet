@@ -1,67 +1,81 @@
-import { PDFDocument, PDFTextField } from "pdf-lib";
+import { PDFDocument, PDFForm, PDFTextField } from "pdf-lib";
 import { VGCSheet } from "../types/vgc-sheet.type";
 
-const pdfLocation = "https://raw.githubusercontent.com/kasp470f/ShowdownVGCTeamSheetExtension/refs/heads/master/public/base.pdf";
-export async function generatePDF(vgcData: VGCSheet) {
-    const pdfBytes = await fetch(pdfLocation).then(res => res.arrayBuffer());
-    await PDFDocument.load(pdfBytes).then(pdfDoc => {
-        const form = pdfDoc.getForm();
-        for (var i = 0; i < vgcData.length; i++) {
-            let poke = vgcData[i];
-            var first_post_fix = i == 0 ? "" : `_${i + 1}`;
-            var second_post_fix = `_${i + 7}`;
+export async function generatePDF(vgcData: VGCSheet, pdf: any) {
+	const pdfBytes = await fetch(pdf).then((res) => res.arrayBuffer());
+	if (!pdfBytes) {
+		console.error(`Failed to load PDF template from ${pdf}`);
+		return;
+	}
 
-            setTextField(form, `Pokémon${first_post_fix}`, poke.name);
-            setTextField(form, `Pokémon${second_post_fix}`, poke.name);
+	await PDFDocument.load(pdfBytes).then((pdfDoc) => {
+		const form = pdfDoc.getForm();
+		for (var i = 0; i < vgcData.length; i++) {
+			let poke = vgcData[i];
 
-            setTextField(form, `Tera Type${first_post_fix}`, poke.tera);
-            setTextField(form, `Tera Type${second_post_fix}`, poke.tera);
+			setMultipleTextFields(form, "Pokémon", i, poke.name);
+			setMultipleTextFields(form, "Tera Type", i, poke.tera);
+			setMultipleTextFields(form, "Ability", i, poke.ability);
+			setMultipleTextFields(form, "Held Item", i, poke.item);
 
-            setTextField(form, `Ability${first_post_fix}`, poke.ability);
-            setTextField(form, `Ability${second_post_fix}`, poke.ability);
+			setStatTextField(form, `Level`, i, poke.level.toString());
+			setStatTextField(form, `HP`, i, poke.stats.hp.toString());
+			setStatTextField(form, `Atk`, i, poke.stats.atk.toString());
+			setStatTextField(form, `Def`, i, poke.stats.def.toString());
+			setStatTextField(form, `Sp Atk`, i, poke.stats.spa.toString());
+			setStatTextField(form, `Sp Def`, i, poke.stats.spd.toString());
+			setStatTextField(form, `Speed`, i, poke.stats.spe.toString());
 
-            setTextField(form, `Held Item${first_post_fix}`, poke.item);
-            setTextField(form, `Held Item${second_post_fix}`, poke.item);
+			for (var j = 0; j < poke.moves.length; j++) {
+				setMoveTextField(form, i, j, poke);
+			}
+		}
 
-            setTextField(form, `Level${first_post_fix}`, poke.level.toString());
-            setTextField(form, `HP${first_post_fix}`, poke.stats.hp.toString());
-            setTextField(form, `Atk${first_post_fix}`, poke.stats.atk.toString());
-            setTextField(form, `Def${first_post_fix}`, poke.stats.def.toString());
-            setTextField(form, `Sp Atk${first_post_fix}`, poke.stats.spa.toString());
-            setTextField(form, `Sp Def${first_post_fix}`, poke.stats.spd.toString());
-            setTextField(form, `Speed${first_post_fix}`, poke.stats.spe.toString());
-
-            setTextField(form, `Move 1${first_post_fix}`, poke.moves[0]);
-            setTextField(form, `Move 1${second_post_fix}`, poke.moves[0]);
-
-            setTextField(form, `Move 2${first_post_fix}`, poke.moves[1]);
-            setTextField(form, `Move 2${second_post_fix}`, poke.moves[1]);
-
-            setTextField(form, `Move 3${first_post_fix}`, poke.moves[2]);
-            setTextField(form, `Move 3${second_post_fix}`, poke.moves[2]);
-
-            setTextField(form, `Move 4${first_post_fix}`, poke.moves[3]);
-            setTextField(form, `Move 4${second_post_fix}`, poke.moves[3]);
-        }
-
-        pdfDoc.save().then(data => {
-            download(data, "filled_ots_check_before_printing.pdf", "application/pdf");
-        });
-    });
+		pdfDoc.save().then((data) => {
+			download(data, "filled_ots_check_before_printing.pdf", "application/pdf");
+		});
+	});
 }
 
 function download(data: Uint8Array, filename: string, type: string) {
-    const blob = new Blob([data as BlobPart], { type: type });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
+	const blob = new Blob([data as BlobPart], { type: type });
+	const url = URL.createObjectURL(blob);
+	const a = document.createElement("a");
+	a.href = url;
+	a.download = filename;
+	a.click();
+	URL.revokeObjectURL(url);
 }
 
+function getFieldName(fieldName: string, i: number) {
+	if (i > 0 && i < 7) i += 1;
 
-function setTextField(form: any, fieldName: string, value: string) {
-    const field = form.getField(fieldName);
-    (field as PDFTextField).setText(value);
+	return [fieldName, i].filter((i) => i !== 0).join("_");
+}
+
+function setTextField(form: PDFForm, fieldName: string, value: string) {
+	const field = form.getField(fieldName);
+	if (field == undefined) {
+		console.warn(`Field ${fieldName} not found`);
+		return;
+	}
+
+	(field as PDFTextField).setText(value);
+}
+
+function setStatTextField(form: PDFForm, fieldName: string, i: number, value: string) {
+	var fullFieldName = getFieldName(fieldName, i);
+	setTextField(form, fullFieldName, value);
+}
+
+function setMultipleTextFields(form: PDFForm, fieldName: string, i: number, value: string) {
+	var firstFieldName = getFieldName(fieldName, i);
+	var secondFieldName = getFieldName(fieldName, i + 7);
+
+	setTextField(form, firstFieldName, value);
+	setTextField(form, secondFieldName, value);
+}
+
+function setMoveTextField(form: PDFForm, i: number, j: number, poke: any) {
+	setMultipleTextFields(form, `Move ${j + 1}`, i, poke.moves[j]);
 }
