@@ -27,7 +27,7 @@ export async function generatePDF(vgcData: VGCSheet, pdf: any): Promise<void> {
 			setStatTextField(form, `Speed`, i, poke.stats.spe.toString());
 
 			for (var j = 0; j < poke.moves.length; j++) {
-				setMoveTextField(form, i, j, poke);
+				setMultipleTextFields(form, `Move ${j + 1}`, i, poke.moves[j]);
 			}
 		}
 
@@ -74,8 +74,4 @@ function setMultipleTextFields(form: PDFForm, fieldName: string, i: number, valu
 
 	setTextField(form, firstFieldName, value);
 	setTextField(form, secondFieldName, value);
-}
-
-function setMoveTextField(form: PDFForm, i: number, j: number, poke: any) {
-	setMultipleTextFields(form, `Move ${j + 1}`, i, poke.moves[j]);
 }
