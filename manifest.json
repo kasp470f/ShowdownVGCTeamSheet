@@ -18,5 +18,11 @@
 			"resources": ["dist/injected.js", "dist/base.pdf"],
 			"matches": ["https://play.pokemonshowdown.com/*"]
 		}
-	]
+	],
+	"browser_specific_settings": {
+		"gecko": {
+			"id": "@showdown-vgc-team-sheet-extension",
+			"strict_min_version": "58.0"
+		}
+	}
 }
