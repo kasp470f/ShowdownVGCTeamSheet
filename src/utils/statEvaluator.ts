@@ -1,4 +1,4 @@
-import { Stat } from "../types/team-set.type";
+import { Stat } from "../types/stats";
 
 export function statEvaluator(
 	stat: Stat,

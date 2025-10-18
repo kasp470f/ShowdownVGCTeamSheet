@@ -1,9 +1,10 @@
 import { Dex } from "../types/dex";
-import { PokemonSet, Stats } from "../types/team-set.type";
+import { StatKeys, Stats } from "../types/stats";
+import { PokemonSet } from "../types/team-set.type";
 import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet.type";
 import { statEvaluator } from "./statEvaluator";
 
-export function getVGCSheet(teamSetList: PokemonSet[], dex: any) {
+export function getVGCSheet(teamSetList: PokemonSet[], dex: any): VGCSheet | undefined {
 	var teamDexIds = teamSetList.map((set) => set.species);
 	if (teamDexIds.length === 0) return;
 
@@ -39,8 +40,7 @@ function createVGCSheetPokemon(set: PokemonSet, species: Dex): VGCSheetPokemon {
 		stats: {} as Stats,
 	};
 
-	const statKeys: (keyof Stats)[] = ["hp", "atk", "def", "spa", "spd", "spe"];
-	for (const statKey of statKeys) {
+	for (const statKey of StatKeys) {
 		vgcPokemon.stats[statKey] = statEvaluator(
 			statKey,
 			species.baseStats[statKey],
