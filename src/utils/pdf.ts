@@ -18,13 +18,13 @@ export async function generatePDF(vgcData: VGCSheet, pdf: any): Promise<void> {
 			setMultipleTextFields(form, "Ability", i, poke.ability);
 			setMultipleTextFields(form, "Held Item", i, poke.item);
 
-			setStatTextField(form, `Level`, i, poke.level.toString());
-			setStatTextField(form, `HP`, i, poke.stats.hp.toString());
-			setStatTextField(form, `Atk`, i, poke.stats.atk.toString());
-			setStatTextField(form, `Def`, i, poke.stats.def.toString());
-			setStatTextField(form, `Sp Atk`, i, poke.stats.spa.toString());
-			setStatTextField(form, `Sp Def`, i, poke.stats.spd.toString());
-			setStatTextField(form, `Speed`, i, poke.stats.spe.toString());
+			setStatTextField(form, `Level`, i, poke.level);
+			setStatTextField(form, `HP`, i, poke.stats.hp);
+			setStatTextField(form, `Atk`, i, poke.stats.atk);
+			setStatTextField(form, `Def`, i, poke.stats.def);
+			setStatTextField(form, `Sp Atk`, i, poke.stats.spa);
+			setStatTextField(form, `Sp Def`, i, poke.stats.spd);
+			setStatTextField(form, `Speed`, i, poke.stats.spe);
 
 			for (var j = 0; j < poke.moves.length; j++) {
 				setMultipleTextFields(form, `Move ${j + 1}`, i, poke.moves[j]);
@@ -63,9 +63,11 @@ function setTextField(form: PDFForm, fieldName: string, value: string): void {
 	(field as PDFTextField).setText(value);
 }
 
-function setStatTextField(form: PDFForm, fieldName: string, i: number, value: string): void {
+function setStatTextField(form: PDFForm, fieldName: string, i: number, value: string | number): void {
 	var fullFieldName = getFieldName(fieldName, i);
-	setTextField(form, fullFieldName, value);
+
+	let inputValue = typeof value === "number" ? value.toString() : value;
+	setTextField(form, fullFieldName, inputValue);
 }
 
 function setMultipleTextFields(form: PDFForm, fieldName: string, i: number, value: string): void {
