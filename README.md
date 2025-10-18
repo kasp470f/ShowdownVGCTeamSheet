@@ -1,7 +1,7 @@
 # A Pokémon Showdown VGC Team Sheet Extension
 
-[![GitHub Release](https://img.shields.io/github/v/release/kasp470f/ShowdownVGCTeamSheet)](https://github.com/kasp470f/ShowdownVGCTeamSheet/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub Release](https://img.shields.io/github/v/release/kasp470f/ShowdownVGCTeamSheet)](https://github.com/kasp470f/ShowdownVGCTeamSheet/releases)
 
 This extension allows users to generate a printable VGC team sheet directly from their Pokémon Showdown teams. It fills out a PDF form with the team's details, making it easy to print and use during competitions.
 
