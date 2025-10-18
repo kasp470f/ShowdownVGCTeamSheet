@@ -1,15 +1,8 @@
+import { Stats } from "./team-set.type";
+
 export interface PokemonDex {
 	num: number;
 	name: string;
-	baseStats: BaseStats;
+	baseStats: Stats;
 	types: string[];
-}
-
-export interface BaseStats {
-	hp: number;
-	atk: number;
-	def: number;
-	spa: number;
-	spd: number;
-	spe: number;
 }
