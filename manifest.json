@@ -3,7 +3,6 @@
 	"name": "Showdown VGC Team Sheet Extension",
 	"version": "0.1.0",
 	"description": "An extension to export team to a VGC sheet on Pokémon Showdown.",
-	"permissions": ["scripting", "activeTab"],
 	"action": {
 		"default_popup": "dist/popup.html"
 	},
