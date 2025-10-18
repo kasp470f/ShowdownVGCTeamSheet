@@ -1,5 +1,11 @@
-import { generatePDF } from "./scripts/pdf";
-import { getVGCSheet } from "./scripts/sheet-converter";
+import { generatePDF } from "./utils/pdf";
+import { getVGCSheet } from "./utils/sheet-converter";
+
+declare global {
+	interface Window {
+		room: any;
+	}
+}
 
 // This script runs in the page's context and has access to page variables
 (function (): void {
@@ -13,7 +19,7 @@ import { getVGCSheet } from "./scripts/sheet-converter";
 		}
 	});
 
-	const isInTeambuilder = (): boolean => {
+	const isTeambuilder = (): boolean => {
 		return document.getElementById("room-teambuilder") !== null;
 	};
 
@@ -24,26 +30,29 @@ import { getVGCSheet } from "./scripts/sheet-converter";
 		return teamWrapper.children[0].classList.contains("pad");
 	};
 
+	const createButtonElement = (): HTMLParagraphElement => {
+		const buttonContainer = document.createElement("p");
+		buttonContainer.id = "vgc-team-sheet-button";
+		const button = document.createElement("button");
+		button.name = "vgcTeamSheet";
+		button.type = "button";
+		button.className = "button exportbutton";
+		button.innerHTML = '<i class="fa fa-download"></i> Generate VGC Team Sheet';
+		button.onclick = (): void => {
+			const vgcData = getVGCSheet(window.room.curSetList, window.room.curTeam.dex.species);
+			if (vgcData) {
+				generatePDF(vgcData, pdfUrl);
+			}
+		};
+
+		buttonContainer.appendChild(button);
+		return buttonContainer;
+	};
+
 	const insertTeamSheetButton = (): void => {
-		// under the element with the class 'teamchart'
 		const teamChart = document.querySelector(".teamchart");
 		if (teamChart && !document.getElementById("vgc-team-sheet-button")) {
-			const buttonContainer = document.createElement("p");
-			buttonContainer.id = "vgc-team-sheet-button";
-			const button = document.createElement("button");
-			button.name = "vgcTeamSheet";
-			button.type = "button";
-			button.className = "button exportbutton";
-			button.innerHTML = '<i class="fa  fa-download"></i> Generate VGC Team Sheet';
-			button.onclick = (): void => {
-				// @ts-ignore
-				const vgcData = getVGCSheet(window.room.curSetList, window.room.curTeam.dex.species);
-				if (vgcData) {
-					generatePDF(vgcData, pdfUrl);
-				}
-			};
-
-			buttonContainer.appendChild(button);
+			const buttonContainer = createButtonElement();
 
 			const pokePasteForm = document.querySelector("#pokepasteForm");
 			if (pokePasteForm) {
@@ -58,7 +67,7 @@ import { getVGCSheet } from "./scripts/sheet-converter";
 
 	// Observer for the entire document to detect when room-teambuilder appears
 	teambuilderObserver = new MutationObserver(() => {
-		if (isInTeambuilder()) {
+		if (isTeambuilder()) {
 			if (isTeamSet()) {
 				insertTeamSheetButton();
 			}

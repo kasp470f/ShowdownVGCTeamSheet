@@ -1,7 +1,7 @@
 import { PokemonDex } from "../types/pokemon.type";
 import { PokemonSet, Stats } from "../types/team-set.type";
 import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet.type";
-import { statEvaluator } from "../utils/statEvaluator";
+import { statEvaluator } from "./statEvaluator";
 
 export function getVGCSheet(teamSetList: PokemonSet[], dex: any) {
 	var teamDexIds = teamSetList.map((set) => set.species);
