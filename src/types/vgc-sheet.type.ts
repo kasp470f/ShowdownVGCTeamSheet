@@ -5,11 +5,11 @@ type VGCSheet = VGCSheetPokemon[];
 interface VGCSheetPokemon {
 	name: string;
 	tera: string;
-	item: string;
 	ability: string;
-	moves: string[];
-	level: number;
+	item: string;
 	stats: Stats;
+	level: number;
+	moves: string[];
 }
 
 export { VGCSheetPokemon, VGCSheet };
