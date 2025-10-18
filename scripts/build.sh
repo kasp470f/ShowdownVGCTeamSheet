@@ -1,11 +1,13 @@
 #!/bin/bash
 
+# Change to project root (parent of this script)
+cd "$(dirname "$0")/.." || exit 1
+
 # Create build directory if it doesn't exist
 if [ ! -d "build" ]; then
   mkdir build >/dev/null 2>&1
   echo "Created build directory."
 fi
-
 
 # Run npm build silently
 echo "Building the extension..."
