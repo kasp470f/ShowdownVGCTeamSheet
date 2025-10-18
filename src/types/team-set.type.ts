@@ -1,3 +1,5 @@
+import { Stats } from "./stats";
+
 export interface PokemonSet {
 	name: string;
 	species: string;
@@ -11,9 +13,3 @@ export interface PokemonSet {
 	gigantamax: boolean;
 	teraType: string;
 }
-
-export type Stat = "hp" | "atk" | "def" | "spa" | "spd" | "spe";
-
-export type Stats = {
-	[K in Stat]: number;
-};

@@ -1,4 +1,4 @@
-import { Stats } from "./team-set.type";
+import { Stats } from "./stats";
 
 export type VGCSheet = VGCSheetPokemon[];
 

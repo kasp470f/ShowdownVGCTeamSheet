@@ -1,4 +1,4 @@
-import { PokemonDex } from "../types/pokemon.type";
+import { Dex } from "../types/dex";
 import { PokemonSet, Stats } from "../types/team-set.type";
 import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet.type";
 import { statEvaluator } from "./statEvaluator";
@@ -7,7 +7,7 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: any) {
 	var teamDexIds = teamSetList.map((set) => set.species);
 	if (teamDexIds.length === 0) return;
 
-	var speciesData = teamDexIds.map((id) => dex.get(id) as PokemonDex);
+	var speciesData = teamDexIds.map((id) => dex.get(id) as Dex);
 	if (speciesData.length === 0) return;
 
 	if (speciesData.length !== teamSetList.length) {
@@ -28,7 +28,7 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: any) {
 	return vgcSheetData;
 }
 
-function createVGCSheetPokemon(set: PokemonSet, species: PokemonDex): VGCSheetPokemon {
+function createVGCSheetPokemon(set: PokemonSet, species: Dex): VGCSheetPokemon {
 	const vgcPokemon: VGCSheetPokemon = {
 		name: set.species,
 		tera: set.teraType ?? species.types[0],
