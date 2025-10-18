@@ -53,27 +53,27 @@ function getFieldName(fieldName: string, i: number): string {
 	return [fieldName, i].filter((i) => i !== 0).join("_");
 }
 
-function setTextField(form: PDFForm, fieldName: string, value: string): void {
+function setTextField(form: PDFForm, fieldName: string, fieldValue: string): void {
 	const field = form.getField(fieldName);
 	if (field == undefined) {
 		console.warn(`Field ${fieldName} not found`);
 		return;
 	}
 
-	(field as PDFTextField).setText(value);
+	(field as PDFTextField).setText(fieldValue);
 }
 
 function setStatTextField(form: PDFForm, fieldName: string, i: number, value: string | number): void {
-	var fullFieldName = getFieldName(fieldName, i);
+	var indexedFieldName = getFieldName(fieldName, i);
 
-	let inputValue = typeof value === "number" ? value.toString() : value;
-	setTextField(form, fullFieldName, inputValue);
+	let fieldValue = typeof value === "number" ? value.toString() : value;
+	setTextField(form, indexedFieldName, fieldValue);
 }
 
 function setMultipleTextFields(form: PDFForm, fieldName: string, i: number, value: string): void {
-	var firstFieldName = getFieldName(fieldName, i);
-	var secondFieldName = getFieldName(fieldName, i + 7);
+	var CTS_FieldName = getFieldName(fieldName, i); // CTS: Closed Team Sheet
+	var OTS_FieldName = getFieldName(fieldName, i + 7); // OTS: Open Team Sheet
 
-	setTextField(form, firstFieldName, value);
-	setTextField(form, secondFieldName, value);
+	setTextField(form, CTS_FieldName, value);
+	setTextField(form, OTS_FieldName, value);
 }

@@ -1,3 +1,5 @@
+
+
 // Content script that injects our script into the page context
 (function (): void {
 	// Create and inject the script element
@@ -6,11 +8,15 @@
 	script.onload = function () {
 		// Remove the script tag after execution
 		script.remove();
+
+		// Get the PDF file from the extension
+		getPDF();
 	};
 
 	// Inject into the page
 	(document.head || document.documentElement).appendChild(script);
 
+	// Function to request the PDF file from the extension
 	function getPDF() {
 		//@ts-ignore
 		const runtime = typeof browser !== "undefined" ? browser.runtime : chrome.runtime;
@@ -18,6 +24,4 @@
 
 		window.postMessage({ type: "VGC_SHEET_PDF", pdfFile: pdfFile }, "*");
 	}
-
-	setTimeout(() => getPDF(), 1000);
 })();
