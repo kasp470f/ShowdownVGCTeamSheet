@@ -8,7 +8,8 @@
 		"watch": "webpack --watch",
 		"start": "webpack serve",
 		"format": "prettier --write .",
-		"build-extension": "build.sh"
+		"build-chrome": "build.sh chrome",
+		"build-firefox": "build.sh firefox"
 	},
 	"keywords": [
 		"browser",
