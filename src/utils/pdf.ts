@@ -1,7 +1,7 @@
 import { PDFDocument, PDFForm, PDFTextField } from "pdf-lib";
 import { VGCSheet } from "../types/vgc-sheet.type";
 
-export async function generatePDF(vgcData: VGCSheet, pdf: any) {
+export async function generatePDF(vgcData: VGCSheet, pdf: any): Promise<void> {
 	const pdfBytes = await fetch(pdf).then((res) => res.arrayBuffer());
 	if (!pdfBytes) {
 		console.error(`Failed to load PDF template from ${pdf}`);
@@ -37,7 +37,7 @@ export async function generatePDF(vgcData: VGCSheet, pdf: any) {
 	});
 }
 
-function download(data: Uint8Array, filename: string, type: string) {
+function download(data: Uint8Array, filename: string, type: string): void {
 	const blob = new Blob([data as BlobPart], { type: type });
 	const url = URL.createObjectURL(blob);
 	const a = document.createElement("a");
@@ -47,13 +47,13 @@ function download(data: Uint8Array, filename: string, type: string) {
 	URL.revokeObjectURL(url);
 }
 
-function getFieldName(fieldName: string, i: number) {
+function getFieldName(fieldName: string, i: number): string {
 	if (i > 0 && i < 7) i += 1;
 
 	return [fieldName, i].filter((i) => i !== 0).join("_");
 }
 
-function setTextField(form: PDFForm, fieldName: string, value: string) {
+function setTextField(form: PDFForm, fieldName: string, value: string): void {
 	const field = form.getField(fieldName);
 	if (field == undefined) {
 		console.warn(`Field ${fieldName} not found`);
@@ -63,12 +63,12 @@ function setTextField(form: PDFForm, fieldName: string, value: string) {
 	(field as PDFTextField).setText(value);
 }
 
-function setStatTextField(form: PDFForm, fieldName: string, i: number, value: string) {
+function setStatTextField(form: PDFForm, fieldName: string, i: number, value: string): void {
 	var fullFieldName = getFieldName(fieldName, i);
 	setTextField(form, fullFieldName, value);
 }
 
-function setMultipleTextFields(form: PDFForm, fieldName: string, i: number, value: string) {
+function setMultipleTextFields(form: PDFForm, fieldName: string, i: number, value: string): void {
 	var firstFieldName = getFieldName(fieldName, i);
 	var secondFieldName = getFieldName(fieldName, i + 7);
 
