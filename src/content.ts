@@ -1,5 +1,3 @@
-
-
 // Content script that injects our script into the page context
 (function (): void {
 	// Create and inject the script element
