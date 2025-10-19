@@ -1,7 +1,9 @@
 {
 	"name": "showdown-vgc-team-sheet-extension",
-	"version": "0.1.0",
 	"description": "An extension to export team to a VGC sheet on Pokémon Showdown.",
+	"version": "0.1.0",
+	"author": "Kasper Wissendorf",
+	"license": "MIT",
 	"main": "src/background.ts",
 	"scripts": {
 		"build": "webpack",
@@ -16,8 +18,6 @@
 		"extension",
 		"typescript"
 	],
-	"author": "Kasper Wissendorf",
-	"license": "MIT",
 	"devDependencies": {
 		"@types/chrome": "^0.1.24",
 		"copy-webpack-plugin": "^13.0.1",
