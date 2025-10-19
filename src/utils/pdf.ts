@@ -1,5 +1,5 @@
 import { PDFDocument, PDFForm, PDFTextField } from "pdf-lib";
-import { VGCSheet } from "../types/vgc-sheet.type";
+import { VGCSheet } from "../types/vgc-sheet";
 
 export async function generatePDF(vgcData: VGCSheet, pdf: any): Promise<void> {
 	const pdfBytes = await fetch(pdf).then((res) => res.arrayBuffer());
