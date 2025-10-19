@@ -1,7 +1,7 @@
 import { Dex } from "../types/dex";
 import { StatKeys, Stats } from "../types/stats";
-import { PokemonSet } from "../types/team-set.type";
-import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet.type";
+import { PokemonSet } from "../types/team-set";
+import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet";
 import { statEvaluator } from "./statEvaluator";
 
 export function getVGCSheet(teamSetList: PokemonSet[], dex: any): VGCSheet | undefined {
