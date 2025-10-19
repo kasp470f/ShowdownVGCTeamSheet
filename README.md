@@ -1,4 +1,4 @@
-# A Pokémon Showdown VGC Team Sheet Extension
+# Showdown VGC Team Sheet Extension
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub Release](https://img.shields.io/github/v/release/kasp470f/ShowdownVGCTeamSheet)](https://github.com/kasp470f/ShowdownVGCTeamSheet/releases)
