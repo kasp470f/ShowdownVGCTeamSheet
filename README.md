@@ -5,13 +5,13 @@
 
 This extension allows users to generate a printable VGC team sheet directly from their Pokémon Showdown teams. It fills out a PDF form with the team's details, making it easy to print and use during local competitions.
 
-It's intended to ease the process of creating physical team sheets for VGC events by automating the data entry from Pokémon Showdown.
+It's intended to ease the process of creating physical team sheets for VGC events by automating it with data from [Pokémon Showdown](https://pokemonshowdown.com).
 
 ## Features
 
 - Add a button to the Pokémon Showdown team builder interface.
 - Generates a downloadable PDF ready for printing.
-- Automatically fills in Pokémon details including moves, items, and stats.
+- Automatically fills in Pokémon details including name, moves, items, tera type, and stats.
 
 ## Screenshots
 
@@ -36,4 +36,4 @@ Or install manually
 
 Made with ❤️ by [Kasper Wissendorf](https://github.com/kasp470f)
 
-A special thanks to [alchemistake](https://github.com/alchemistake) for creating the original PDF template.
+A special thanks to [alchemistake](https://github.com/alchemistake) for providing the original PDF template.
