@@ -16,7 +16,7 @@ export function statEvaluator(
 	} else {
 		let natureMultiplier = 1.0;
 
-		if (nature in NatureChanges) {
+		if (nature in NatureChanges && NatureChanges[nature] !== undefined) {
 			const changes = NatureChanges[nature];
 			if (changes.plus === stat) {
 				natureMultiplier = 1.1;
