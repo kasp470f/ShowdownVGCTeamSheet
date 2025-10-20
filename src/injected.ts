@@ -7,6 +7,11 @@ declare global {
 	}
 }
 
+const teamBuilderRoomId = "room-teambuilder";
+const teamWrapperClass = "teamwrapper";
+const pokePasteFormId = "pokepasteForm";
+const vgcButtonId = "vgc-team-sheet-button";
+
 // This script runs in the page's context and has access to page variables
 (function (): void {
 	console.log("VGC Team Sheet Extension injected script loaded");
@@ -20,11 +25,11 @@ declare global {
 	});
 
 	const isTeambuilder = (): boolean => {
-		return document.getElementById("room-teambuilder") !== null;
+		return document.getElementById(teamBuilderRoomId) !== null;
 	};
 
 	const isTeamSet = (): boolean => {
-		const teamWrapper = document.querySelector(".teamwrapper");
+		const teamWrapper = document.querySelector(`.${teamWrapperClass}`);
 		if (!teamWrapper || teamWrapper.children.length === 0) return false;
 		if (teamWrapper.children.length > 1) return false;
 		return teamWrapper.children[0].classList.contains("pad");
@@ -32,7 +37,7 @@ declare global {
 
 	const createButtonElement = (): HTMLParagraphElement => {
 		const buttonContainer = document.createElement("p");
-		buttonContainer.id = "vgc-team-sheet-button";
+		buttonContainer.id = vgcButtonId;
 		const button = document.createElement("button");
 		button.name = "vgcTeamSheet";
 		button.type = "button";
@@ -51,10 +56,10 @@ declare global {
 
 	const insertTeamSheetButton = (): void => {
 		const teamChart = document.querySelector(".teamchart");
-		if (teamChart && !document.getElementById("vgc-team-sheet-button")) {
+		if (teamChart && !document.getElementById(vgcButtonId)) {
 			const buttonContainer = createButtonElement();
 
-			const pokePasteForm = document.querySelector("#pokepasteForm");
+			const pokePasteForm = document.querySelector(`#${pokePasteFormId}`);
 			if (pokePasteForm) {
 				pokePasteForm.appendChild(buttonContainer);
 			} else {
