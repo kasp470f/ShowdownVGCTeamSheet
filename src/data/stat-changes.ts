@@ -1,6 +1,6 @@
 import { Stat } from "../types/stats";
 
-export type StatChange = Stat | "none";
+type StatChange = Stat | "none";
 export const NatureChanges: {
 	[key: string]: { plus: StatChange; minus: StatChange };
 } = {
