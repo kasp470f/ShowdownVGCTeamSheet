@@ -28,7 +28,7 @@ Or install manually
 2. Unzip the downloaded file.
 3. Load the extension in your browser:
     - For Chrome: Go to `chrome://extensions/`, enable "Developer mode", click "Load unpacked", and select the unzipped folder.
-    - For Firefox: Go to `about:debugging#/runtime/this-firefox`, click "Load Temporary Add-on", and select any file in the unzipped folder.
+    - For Firefox: Go to `about:addons`, go to Extensions, click the gear icon, select "Install Add-on From File...", and choose the unzipped folder.
 
 ## Credits
 
