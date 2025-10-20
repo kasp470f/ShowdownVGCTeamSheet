@@ -3,14 +3,14 @@ import { Stat } from "../types/stats";
 
 /**
  * Calculates the final value of a Pokémon's stat based on its base stat, IVs, EVs, level, and nature.
- * 
+ *
  * @param stat - The stat type being calculated ("hp", "atk", "def", "spa", "spd", "spe")
  * @param baseStat - The Pokémon's base stat value
  * @param iv - The Individual Value for the stat (0-31)
  * @param ev - The Effort Value for the stat (0-252)
  * @param level - The Pokémon's level (1-100)
  * @param nature - The Pokémon's nature, which may affect stats
- * 
+ *
  * @returns The calculated final stat value
  */
 export function statEvaluator(

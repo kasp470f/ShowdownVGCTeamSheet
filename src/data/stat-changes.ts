@@ -3,26 +3,13 @@ import { Stat } from "../types/stats";
 type StatChange = Stat | "none";
 /**
  * A mapping of Pokémon natures to their corresponding stat changes.
- * 
- * Each nature in Pokémon games affects stats by increasing one stat by 10% 
+ *
+ * Each nature in Pokémon games affects stats by increasing one stat by 10%
  * and decreasing another by 10%, or having no effect (neutral natures).
- * 
- * @example
- * // Get the stat changes for Adamant nature
- * const adamantChanges = NatureChanges["Adamant"];
- * // Result: { plus: "atk", minus: "spa" }
- * 
+ *
  * @type {Object.<string, {plus: StatChange, minus: StatChange}>}
  * @property {StatChange} plus - The stat that gets a 10% increase
  * @property {StatChange} minus - The stat that gets a 10% decrease
- * 
- * Where StatChange can be one of:
- * - "atk" - Attack
- * - "def" - Defense
- * - "spa" - Special Attack
- * - "spd" - Special Defense
- * - "spe" - Speed
- * - "none" - No stat change (for neutral natures)
  */
 export const NatureChanges: {
 	[key: string]: { plus: StatChange; minus: StatChange };
