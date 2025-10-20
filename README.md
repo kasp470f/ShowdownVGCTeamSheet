@@ -37,3 +37,5 @@ Or install manually
 Made with ❤️ by [Kasper Wissendorf](https://github.com/kasp470f)
 
 A special thanks to [alchemistake](https://github.com/alchemistake) for providing the original PDF template.
+
+And of course without the amazing work of the [Pokémon Showdown](https://pokemonshowdown.com) team, this extension wouldn't be possible.
