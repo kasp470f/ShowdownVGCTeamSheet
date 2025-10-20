@@ -37,6 +37,10 @@ cp -r dist "build/$BUILD_TYPE/" >/dev/null 2>&1
 echo "Copying manifest for $BUILD_TYPE..."
 cp "manifest.json" "build/$BUILD_TYPE/manifest.json" >/dev/null 2>&1
 
+# Copy the icons to the build directory
+echo "Copying icons..."
+cp -r "public/icons/128.png" "build/$BUILD_TYPE/128.png" >/dev/null 2>&1
+
 # Echo only
 echo "Build complete: build/$BUILD_TYPE.zip"
 echo ""
