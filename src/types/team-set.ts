@@ -10,6 +10,5 @@ export interface PokemonSet {
 	evs: Stats;
 	ivs: Stats;
 	level: number;
-	gigantamax: boolean;
 	teraType: string;
 }
