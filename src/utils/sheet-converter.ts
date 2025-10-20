@@ -4,6 +4,14 @@ import { PokemonSet } from "../types/team-set";
 import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet";
 import { statEvaluator } from "./statEvaluator";
 
+/**
+ * Converts a list of Pokémon sets into a VGC (Video Game Championships) team sheet format.
+ * 
+ * @param teamSetList - An array of Pokémon sets to convert
+ * @param dex - The Pokédex data source used to retrieve species information
+ * 
+ * @returns A VGCSheet containing formatted data for each Pokémon in the team, or undefined
+ */
 export function getVGCSheet(teamSetList: PokemonSet[], dex: any): VGCSheet | undefined {
 	var teamDexIds = teamSetList.map((set) => set.species);
 	if (teamDexIds.length === 0) return;
@@ -29,6 +37,16 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: any): VGCSheet | und
 	return vgcSheetData;
 }
 
+/**
+ * Converts a PokemonSet into a VGCSheetPokemon format.
+ * 
+ * This function transforms Pokémon data into the format required for VGC team sheets,
+ * calculating the final stats based on species base stats, IVs, EVs, level, and nature.
+ * 
+ * @param set - The Pokémon set containing species, moves, ability, item, etc.
+ * @param species - The Dex entry containing base stats and types information for the Pokémon
+ * @returns A VGCSheetPokemon object with all required fields for a VGC team sheet
+ */
 function createVGCSheetPokemon(set: PokemonSet, species: Dex): VGCSheetPokemon {
 	const vgcPokemon: VGCSheetPokemon = {
 		name: set.species,
