@@ -1,9 +1,14 @@
+import { PokemonSet } from "./types/pokemon-set";
+import { Team } from "./types/team";
 import { generatePDF } from "./utils/pdf";
 import { getVGCSheet } from "./utils/sheet-converter";
 
 declare global {
 	interface Window {
-		room: any;
+		room: {
+			curSetList: PokemonSet[];
+			curTeam: Team | null;
+		};
 	}
 }
 
@@ -35,7 +40,13 @@ const vgcButtonId = "vgc-team-sheet-button";
 		return teamWrapper.children[0].classList.contains("pad");
 	};
 
-	const createButtonElement = (): HTMLParagraphElement => {
+	const isCreateButtonDisabled = (): boolean => {
+		const team = window.room?.curTeam;
+		if (!team || team.capacity > 6) return true;
+		return false;
+	};
+
+	const createButtonElement = (): HTMLParagraphElement | undefined => {
 		const buttonContainer = document.createElement("p");
 		buttonContainer.id = vgcButtonId;
 		const button = document.createElement("button");
@@ -43,8 +54,15 @@ const vgcButtonId = "vgc-team-sheet-button";
 		button.type = "button";
 		button.className = "button exportbutton";
 		button.innerHTML = '<i class="fa fa-download"></i> Generate VGC Team Sheet';
+
+		const windowCurSetList = window.room?.curSetList;
+		const windowDex = window.room?.curTeam?.dex;
+
+		if (!windowCurSetList || !windowDex) return;
+
+		button.disabled = isCreateButtonDisabled();
 		button.onclick = (): void => {
-			const vgcData = getVGCSheet(window.room.curSetList, window.room.curTeam.dex.species);
+			const vgcData = getVGCSheet(windowCurSetList, windowDex);
 			if (vgcData) {
 				generatePDF(vgcData, pdfUrl);
 			}
@@ -58,6 +76,7 @@ const vgcButtonId = "vgc-team-sheet-button";
 		const teamChart = document.querySelector(".teamchart");
 		if (teamChart && !document.getElementById(vgcButtonId)) {
 			const buttonContainer = createButtonElement();
+			if (!buttonContainer) return;
 
 			const pokePasteForm = document.querySelector(`#${pokePasteFormId}`);
 			if (pokePasteForm) {

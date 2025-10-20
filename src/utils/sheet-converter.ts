@@ -1,8 +1,8 @@
-import { Dex } from "../types/dex";
 import { StatKeys, Stats } from "../types/stats";
-import { PokemonSet } from "../types/team-set";
+import { PokemonSet } from "../types/pokemon-set";
 import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet";
 import { statEvaluator } from "./statEvaluator";
+import { Dex, DexSpecies } from "../types/dex";
 
 /**
  * Converts a list of Pokémon sets into a VGC (Video Game Championships) team sheet format.
@@ -12,11 +12,11 @@ import { statEvaluator } from "./statEvaluator";
  *
  * @returns A VGCSheet containing formatted data for each Pokémon in the team, or undefined
  */
-export function getVGCSheet(teamSetList: PokemonSet[], dex: any): VGCSheet | undefined {
+export function getVGCSheet(teamSetList: PokemonSet[], dex: Dex): VGCSheet | undefined {
 	var teamDexIds = teamSetList.map((set) => set.species);
-	if (teamDexIds.length === 0) return;
+	if (teamDexIds.length === 0 || teamDexIds.length > 6) return;
 
-	var speciesData = teamDexIds.map((id) => dex.get(id) as Dex);
+	var speciesData = teamDexIds.map((id) => dex.species.get(id) as DexSpecies);
 	if (speciesData.length === 0) return;
 
 	if (speciesData.length !== teamSetList.length) {
@@ -47,7 +47,7 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: any): VGCSheet | und
  * @param species - The Dex entry containing base stats and types information for the Pokémon
  * @returns A VGCSheetPokemon object with all required fields for a VGC team sheet
  */
-function createVGCSheetPokemon(set: PokemonSet, species: Dex): VGCSheetPokemon {
+function createVGCSheetPokemon(set: PokemonSet, species: DexSpecies): VGCSheetPokemon {
 	const vgcPokemon: VGCSheetPokemon = {
 		name: set.species,
 		tera: set.teraType ?? species.types[0],
