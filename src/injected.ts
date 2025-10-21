@@ -40,10 +40,10 @@ const vgcButtonId = "vgc-team-sheet-button";
 		return teamWrapper.children[0].classList.contains("pad");
 	};
 
-	const isCreateButtonDisabled = (): boolean => {
+	const isCreateButtonVisible = (): boolean => {
 		const team = window.room?.curTeam;
-		if (!team || team.capacity > 6) return true;
-		return false;
+		if (!team || team.capacity > 6) return false;
+		return true;
 	};
 
 	const createButtonElement = (): HTMLParagraphElement | undefined => {
@@ -59,9 +59,8 @@ const vgcButtonId = "vgc-team-sheet-button";
 		const windowCurTeam = window.room?.curTeam;
 		const windowDex = windowCurTeam?.dex;
 
-		if (!windowCurSetList || !windowDex) return;
+		if (!windowCurSetList || !windowDex || !isCreateButtonVisible()) return;
 
-		button.disabled = isCreateButtonDisabled();
 		button.onclick = (): void => {
 			const vgcData = getVGCSheet(windowCurSetList, windowDex);
 			if (vgcData) {
