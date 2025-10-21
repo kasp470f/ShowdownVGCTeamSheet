@@ -7,6 +7,9 @@ This extension allows users to generate a printable VGC team sheet directly from
 
 It's intended to ease the process of creating physical team sheets for VGC events by automating it with data from [Pokémon Showdown](https://pokemonshowdown.com).
 
+> [!WARNING]
+> Remember to double-check the generated PDF before printing.
+
 ## Features
 
 - Add a button to the Pokémon Showdown team builder interface.

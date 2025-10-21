@@ -12,7 +12,7 @@ import { VGCSheet } from "../types/vgc-sheet";
  * @returns A promise that resolves when the PDF has been generated and download started
  * @throws Will log an error to console if the PDF template cannot be loaded
  */
-export async function generatePDF(vgcData: VGCSheet, pdf: any): Promise<void> {
+export async function generatePDF(vgcData: VGCSheet, pdf: any, teamName: string | undefined): Promise<void> {
 	const pdfBytes = await fetch(pdf).then((res) => res.arrayBuffer());
 	if (!pdfBytes) {
 		console.error(`Failed to load PDF template from ${pdf}`);
@@ -43,7 +43,8 @@ export async function generatePDF(vgcData: VGCSheet, pdf: any): Promise<void> {
 		}
 
 		pdfDoc.save().then((data) => {
-			download(data, "filled_ots_check_before_printing.pdf", "application/pdf");
+			const filename = `${teamName}_filled_vgc_team_sheet.pdf`;
+			download(data, filename, "application/pdf");
 		});
 	});
 }

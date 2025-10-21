@@ -56,7 +56,8 @@ const vgcButtonId = "vgc-team-sheet-button";
 		button.innerHTML = '<i class="fa fa-download"></i> Generate VGC Team Sheet';
 
 		const windowCurSetList = window.room?.curSetList;
-		const windowDex = window.room?.curTeam?.dex;
+		const windowCurTeam = window.room?.curTeam;
+		const windowDex = windowCurTeam?.dex;
 
 		if (!windowCurSetList || !windowDex) return;
 
@@ -64,7 +65,7 @@ const vgcButtonId = "vgc-team-sheet-button";
 		button.onclick = (): void => {
 			const vgcData = getVGCSheet(windowCurSetList, windowDex);
 			if (vgcData) {
-				generatePDF(vgcData, pdfUrl);
+				generatePDF(vgcData, pdfUrl, windowCurTeam?.name);
 			}
 		};
 
