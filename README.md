@@ -25,7 +25,7 @@ It's intended to ease the process of creating physical team sheets for VGC event
 Install via extension marketplace
 
 - [Chrome Web Store](https://chromewebstore.google.com/detail/hhmgmifkiefbakippglilgcfnndlkbab?utm_source=item-share-cb)
-- [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/your-extension-id)
+- [Firefox Add-ons](https://addons.mozilla.org/en-GB/firefox/addon/showdown-vgc-team-sheet)
 
 Or install manually
 
