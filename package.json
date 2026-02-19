@@ -6,12 +6,12 @@
 	"license": "MIT",
 	"main": "src/background.ts",
 	"scripts": {
-		"build": "webpack",
 		"watch": "webpack --watch",
 		"start": "webpack serve",
 		"format": "prettier --write .",
-		"build-chrome": "cd scripts && build.sh chrome",
-		"build-firefox": "cd scripts && build.sh firefox"
+		"build:all": "npm run build:chrome && npm run build:firefox",
+		"build:chrome": "cd scripts && build.sh chrome",
+		"build:firefox": "cd scripts && build.sh firefox"
 	},
 	"keywords": [
 		"browser",

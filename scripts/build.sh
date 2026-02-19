@@ -33,9 +33,15 @@ fi
 echo "Copying output to build/$BUILD_TYPE..."
 cp -r dist "build/$BUILD_TYPE/" >/dev/null 2>&1
 
-# Copy the specific manifest file based on build type
-echo "Copying manifest for $BUILD_TYPE..."
-cp "manifest.json" "build/$BUILD_TYPE/manifest.json" >/dev/null 2>&1
+# Select the specific manifest file based on build type (fallback to manifest.json)
+MANIFEST_FILE="manifest.$BUILD_TYPE.json"
+if [ ! -f "$MANIFEST_FILE" ]; then
+  MANIFEST_FILE="manifest.json"
+fi
+
+# Copy selected manifest file
+echo "Copying manifest for $BUILD_TYPE from $MANIFEST_FILE..."
+cp "$MANIFEST_FILE" "build/$BUILD_TYPE/manifest.json" >/dev/null 2>&1
 
 # Copy the icons to the build directory
 echo "Copying icons..."
