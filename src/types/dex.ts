@@ -2,7 +2,7 @@ import { Stats } from "./stats";
 
 /**
  * Interface representing a Pokédex, providing access to Pokémon data.
- * 
+ *
  * @property species - A function that provides access to Pokémon species data
  */
 export interface Dex {

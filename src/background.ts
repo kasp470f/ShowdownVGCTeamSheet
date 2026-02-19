@@ -1,6 +1,5 @@
 const REPORT_BUG_MENU_ID = "report-bug";
-const REPORT_BUG_URL =
-	"https://github.com/kasp470f/ShowdownVGCTeamSheet/issues";
+const REPORT_BUG_URL = "https://github.com/kasp470f/ShowdownVGCTeamSheet/issues";
 
 function createReportBugMenu(): void {
 	chrome.contextMenus.removeAll(() => {

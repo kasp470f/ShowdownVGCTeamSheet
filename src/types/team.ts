@@ -2,7 +2,7 @@ import { Dex } from "./dex";
 
 /**
  * Represents a Pokémon team configuration.
- * 
+ *
  * @interface Team
  * @property {string} name - The name of the team.
  * @property {string} format - The battle format specification (e.g., "VGC2023", "Singles").
