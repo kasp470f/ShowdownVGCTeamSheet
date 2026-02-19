@@ -4,6 +4,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 module.exports = {
 	mode: "development",
 	entry: {
+		background: "./src/background.ts",
 		content: "./src/content.ts",
 		injected: "./src/injected.ts",
 	},
@@ -27,7 +28,6 @@ module.exports = {
 	plugins: [
 		new CopyWebpackPlugin({
 			patterns: [
-				{ from: "src/popup/popup.html", to: "popup.html" },
 				{ from: "public/base.pdf", to: "base.pdf" },
 			],
 		}),

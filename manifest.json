@@ -6,9 +6,11 @@
 	"icons": {
 		"128": "128.png"
 	},
-	"action": {
-		"default_popup": "dist/popup.html"
+	"action": {},
+	"background": {
+		"service_worker": "dist/background.js"
 	},
+	"permissions": ["contextMenus"],
 	"content_scripts": [
 		{
 			"matches": ["https://play.pokemonshowdown.com/*"],
