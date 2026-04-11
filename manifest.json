@@ -1,7 +1,7 @@
 {
 	"manifest_version": 3,
 	"name": "Showdown VGC Team Sheet Extension",
-	"version": "0.5.1",
+	"version": "0.6.0",
 	"description": "An extension to export team to a VGC sheet on Pokémon Showdown.",
 	"icons": {
 		"128": "public/icons/128.png"
@@ -10,18 +10,29 @@
 	"background": {
 		"service_worker": "dist/background.js"
 	},
-	"permissions": ["contextMenus"],
+	"permissions": [
+		"contextMenus"
+	],
 	"content_scripts": [
 		{
-			"matches": ["https://play.pokemonshowdown.com/*"],
-			"js": ["dist/content.js"],
+			"matches": [
+				"https://play.pokemonshowdown.com/*"
+			],
+			"js": [
+				"dist/content.js"
+			],
 			"run_at": "document_end"
 		}
 	],
 	"web_accessible_resources": [
 		{
-			"resources": ["dist/injected.js", "dist/base.pdf"],
-			"matches": ["https://play.pokemonshowdown.com/*"]
+			"resources": [
+				"dist/injected.js",
+				"dist/base.pdf"
+			],
+			"matches": [
+				"https://play.pokemonshowdown.com/*"
+			]
 		}
 	],
 	"browser_specific_settings": {
