@@ -4,7 +4,7 @@
 	"version": "0.5.1",
 	"description": "An extension to export team to a VGC sheet on Pokémon Showdown.",
 	"icons": {
-		"128": "128.png"
+		"128": "public/icons/128.png"
 	},
 	"action": {},
 	"background": {

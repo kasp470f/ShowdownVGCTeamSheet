@@ -1,7 +1,7 @@
 import { StatKeys, Stats } from "../types/stats";
 import { PokemonSet } from "../types/pokemon-set";
 import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet";
-import { statEvaluator } from "./statEvaluator";
+import { statEvaluatorOriginal, statEvaluatorChampions } from "./statEvaluator";
 import { Dex, DexSpecies } from "../types/dex";
 
 /**
@@ -25,12 +25,13 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: Dex): VGCSheet | und
 	}
 
 	var vgcSheetData: VGCSheet = [];
+	const isChampionsFormat = dex.modid === "champions";
 
 	for (var pokemon in teamSetList) {
 		var set = teamSetList[pokemon];
 		var species = speciesData[pokemon];
 
-		var vgcPokemon = createVGCSheetPokemon(set, species);
+		var vgcPokemon = createVGCSheetPokemon(set, species, isChampionsFormat);
 		vgcSheetData.push(vgcPokemon);
 	}
 
@@ -47,7 +48,7 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: Dex): VGCSheet | und
  * @param species - The Dex entry containing base stats and types information for the Pokémon
  * @returns A VGCSheetPokemon object with all required fields for a VGC team sheet
  */
-function createVGCSheetPokemon(set: PokemonSet, species: DexSpecies): VGCSheetPokemon {
+function createVGCSheetPokemon(set: PokemonSet, species: DexSpecies, isChampionsFormat: boolean): VGCSheetPokemon {
 	const vgcPokemon: VGCSheetPokemon = {
 		name: set.species,
 		tera: set.teraType ?? species.types[0],
@@ -59,14 +60,23 @@ function createVGCSheetPokemon(set: PokemonSet, species: DexSpecies): VGCSheetPo
 	};
 
 	for (const statKey of StatKeys) {
-		vgcPokemon.stats[statKey] = statEvaluator(
-			statKey,
-			species.baseStats[statKey],
-			set.ivs[statKey] ?? 0,
-			set.evs[statKey] ?? 0,
-			set.level,
-			set.nature.length > 0 ? set.nature : "Serious",
-		);
+		if (isChampionsFormat) {
+			vgcPokemon.stats[statKey] = statEvaluatorChampions(
+				statKey,
+				species.baseStats[statKey],
+				set.evs[statKey] ?? 0,
+				set.nature.length > 0 ? set.nature : "Serious",
+			);
+		} else {
+			vgcPokemon.stats[statKey] = statEvaluatorOriginal(
+				statKey,
+				species.baseStats[statKey],
+				set.ivs[statKey] ?? 0,
+				set.evs[statKey] ?? 0,
+				set.level,
+				set.nature.length > 0 ? set.nature : "Serious",
+			);
+		}
 	}
 
 	return vgcPokemon;

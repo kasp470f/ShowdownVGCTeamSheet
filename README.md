@@ -35,6 +35,17 @@ Or install manually
     - For Chrome: Go to `chrome://extensions/`, enable "Developer mode", click "Load unpacked", and select the unzipped folder.
     - For Firefox: Go to `about:addons`, go to Extensions, click the gear icon, select "Install Add-on From File...", and choose the unzipped folder.
 
+## Releases
+
+For a local production build, run `npm run package:all`. This rebuilds the extension and creates browser-specific folders in `build/chrome` and `build/firefox`.
+
+For an official GitHub release, use the `Release Extension` workflow in GitHub Actions and provide the version you want to publish. The workflow will:
+
+1. Sync the version across `package.json`, `package-lock.json`, and all manifests.
+2. Build Chrome and Firefox packages.
+3. Commit the version bump and create a `vX.Y.Z` tag.
+4. Publish a GitHub release with zipped browser artifacts attached.
+
 ## Credits
 
 Made with ❤️ by [Kasper Wissendorf](https://github.com/kasp470f)

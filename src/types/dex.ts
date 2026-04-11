@@ -7,6 +7,7 @@ import { Stats } from "./stats";
  */
 export interface Dex {
 	species: DexSpeciesFunction;
+	modid?: "champions" | undefined;
 }
 
 /**
