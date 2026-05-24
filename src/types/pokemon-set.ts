@@ -26,5 +26,5 @@ export interface PokemonSet {
 	evs: Stats;
 	ivs: Stats;
 	level: number;
-	teraType: string;
+	teraType?: string;
 }

@@ -51,7 +51,7 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: Dex): VGCSheet | und
 function createVGCSheetPokemon(set: PokemonSet, species: DexSpecies, isChampionsFormat: boolean): VGCSheetPokemon {
 	const vgcPokemon: VGCSheetPokemon = {
 		name: set.species,
-		tera: set.teraType ?? species.types[0],
+		tera: isChampionsFormat ? 'None' : set.teraType ?? species.types[0], // Default to first type if Tera Type is not specified in non-Champions format
 		ability: set.ability,
 		item: set.item,
 		moves: set.moves,
