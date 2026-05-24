@@ -30,10 +30,10 @@ jobs:
             - name: Install dependencies
               run: npm ci
 
-            - name: Ensure tag does not already exist
+            - name: Ensure tag does exist
               run: |
-                  if git rev-parse "v${{ inputs.version }}" >/dev/null 2>&1; then
-                    echo "Tag v${{ inputs.version }} already exists."
+                  if ! git rev-parse "v${{ inputs.version }}" >/dev/null 2>&1; then
+                    echo "Tag v${{ inputs.version }} does not exist."
                     exit 1
                   fi
 
