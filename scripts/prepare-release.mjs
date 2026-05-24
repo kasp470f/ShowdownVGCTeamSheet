@@ -7,19 +7,6 @@ import { fileURLToPath } from "node:url";
 const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const version = getVersionArgument(process.argv.slice(2));
 
-await updateJsonFile("package.json", (json) => {
-	json.version = version;
-	return json;
-});
-
-await updateJsonFile("package-lock.json", (json) => {
-	json.version = version;
-	if (json.packages?.[""]) {
-		json.packages[""].version = version;
-	}
-	return json;
-});
-
 for (const manifestName of ["manifest.json", "manifest.chrome.json", "manifest.firefox.json"]) {
 	await updateJsonFile(manifestName, (json) => {
 		json.version = version;
