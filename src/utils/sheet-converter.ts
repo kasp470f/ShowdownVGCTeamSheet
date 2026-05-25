@@ -3,6 +3,7 @@ import { PokemonSet } from "../types/pokemon-set";
 import { VGCSheet, VGCSheetPokemon } from "../types/vgc-sheet";
 import { statEvaluatorOriginal, statEvaluatorChampions } from "./statEvaluator";
 import { Dex, DexSpecies } from "../types/dex";
+import { FormRequiredSpecies } from "../data/form-required-species";
 
 /**
  * Converts a list of Pokémon sets into a VGC (Video Game Championships) team sheet format.
@@ -49,8 +50,15 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: Dex): VGCSheet | und
  * @returns A VGCSheetPokemon object with all required fields for a VGC team sheet
  */
 function createVGCSheetPokemon(set: PokemonSet, species: DexSpecies, isChampionsFormat: boolean): VGCSheetPokemon {
+	const getName = () => {
+		if (FormRequiredSpecies.some(formSpecies => species.name == formSpecies)) {
+			return `${species.baseSpecies}-${species.baseForme}`;
+		}
+		return species.name;
+	}
+
 	const vgcPokemon: VGCSheetPokemon = {
-		name: set.species,
+		name: getName(),
 		tera: isChampionsFormat ? 'None' : set.teraType ?? species.types[0], // Default to first type if Tera Type is not specified in non-Champions format
 		ability: set.ability,
 		item: set.item,
