@@ -36,4 +36,6 @@ export interface DexSpecies {
 	species: string;
 	baseStats: Stats;
 	types: string[];
+	baseSpecies?: string;
+	baseForme?: string;
 }
