@@ -15,5 +15,12 @@ export const FormRequiredSpecies: string[] = [
     "Oinkologne",
     "Maushold",
     "Tatsugiri",
-    "Ogerpon",
+    "Ogerpon",  
+    "Wormadam",
+    "Meloetta",
+    "Burmy",
+    "Pumpkaboo",
+    "Gourgeist",
+    "Silvally",
+    "Arceus"
 ];
