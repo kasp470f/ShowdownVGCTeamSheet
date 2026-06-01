@@ -4,7 +4,12 @@ import { Stats } from "./stats";
  * Represents a complete VGC (Video Game Championships) team sheet as an array of Pokémon.
  * Each element in the array is a {@link VGCSheetPokemon} object containing the details of an individual Pokémon.
  */
-export type VGCSheet = VGCSheetPokemon[];
+// export type VGCSheet = VGCSheetPokemon[];
+
+export interface VGCSheet {
+	format?: string;
+	team: VGCSheetPokemon[];
+}
 
 /**
  * Represents a single Pokémon's configuration in a VGC team sheet.
@@ -17,6 +22,7 @@ export type VGCSheet = VGCSheetPokemon[];
  * @property {Stats} stats - The complete set of the Pokémon's statistics.
  * @property {number} level - The level of the Pokémon.
  * @property {string[]} moves - An array of moves the Pokémon knows (up to 4).
+ * @property {string} [nature] - The nature of the Pokémon, which may affect stat alignment on the team sheet.
  */
 export interface VGCSheetPokemon {
 	name: string;
@@ -24,6 +30,7 @@ export interface VGCSheetPokemon {
 	ability: string;
 	item: string;
 	stats: Stats;
+	nature?: string;
 	level: number;
 	moves: string[];
 }

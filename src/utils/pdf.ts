@@ -12,24 +12,35 @@ import { VGCSheet } from "../types/vgc-sheet";
  * @returns A promise that resolves when the PDF has been generated and download started
  * @throws Will log an error to console if the PDF template cannot be loaded
  */
-export async function generatePDF(vgcData: VGCSheet, pdf: any, teamName: string | undefined): Promise<void> {
-	const pdfBytes = await fetch(pdf).then((res) => res.arrayBuffer());
+export async function generatePDF(vgcData: VGCSheet, pdfs: { [key: string]: string }, teamName: string | undefined): Promise<void> {
+	let pdfUrl: string | undefined;
+	if (vgcData.format == "champions" && pdfs.champions) {
+		pdfUrl = pdfs.champions;
+	} else {
+		pdfUrl = pdfs.sv;
+	}
+
+	const pdfBytes = await fetch(pdfUrl).then((res) => res.arrayBuffer());
 	if (!pdfBytes) {
-		console.error(`Failed to load PDF template from ${pdf}`);
+		console.error(`Failed to load PDF template from ${pdfUrl}`);
 		return;
 	}
 
 	await PDFDocument.load(pdfBytes).then((pdfDoc) => {
 		const form = pdfDoc.getForm();
-		for (var i = 0; i < vgcData.length; i++) {
-			let poke = vgcData[i];
+		for (var i = 0; i < vgcData.team.length; i++) {
+			let poke = vgcData.team[i];
 
 			setMultipleTextFields(form, "Pokémon", i, poke.name);
-			setMultipleTextFields(form, "Tera Type", i, poke.tera);
+			if (vgcData.format === "champions") {
+				setMultipleTextFields(form, "Stat Alignment", i, poke.nature || ""); // Set nature in the stat alignment field if available, otherwise leave it blank
+			} else {
+				setStatTextField(form, `Level`, i, poke.level);
+				setMultipleTextFields(form, "Tera Type", i, poke.tera);
+			}
 			setMultipleTextFields(form, "Ability", i, poke.ability);
 			setMultipleTextFields(form, "Held Item", i, poke.item);
 
-			setStatTextField(form, `Level`, i, poke.level);
 			setStatTextField(form, `HP`, i, poke.stats.hp);
 			setStatTextField(form, `Atk`, i, poke.stats.atk);
 			setStatTextField(form, `Def`, i, poke.stats.def);

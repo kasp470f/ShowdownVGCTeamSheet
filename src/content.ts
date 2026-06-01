@@ -18,8 +18,11 @@
 	function getPDF() {
 		//@ts-ignore
 		const runtime = typeof browser !== "undefined" ? browser.runtime : chrome.runtime;
-		const pdfFile = runtime.getURL("dist/base.pdf");
+		const pdfFiles = {
+			sv: runtime.getURL("dist/sv.pdf"),
+			champions: runtime.getURL("dist/champions.pdf")
+		};
 
-		window.postMessage({ type: "VGC_SHEET_PDF", pdfFile: pdfFile }, "*");
+		window.postMessage({ type: "VGC_SHEET_PDF", pdfFiles: pdfFiles }, "*");
 	}
 })();

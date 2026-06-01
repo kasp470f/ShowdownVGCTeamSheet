@@ -27,7 +27,10 @@ module.exports = {
 	},
 	plugins: [
 		new CopyWebpackPlugin({
-			patterns: [{ from: "public/base.pdf", to: "base.pdf" }],
+			patterns: [
+				{ from: "public/sv.pdf", to: "sv.pdf" },
+				{ from: "public/champions.pdf", to: "champions.pdf" }
+			],
 		}),
 	],
 	devtool: "inline-source-map",

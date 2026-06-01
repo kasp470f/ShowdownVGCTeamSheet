@@ -20,12 +20,12 @@ const vgcButtonId = "vgc-team-sheet-button";
 // This script runs in the page's context and has access to page variables
 (function (): void {
 	console.log("VGC Team Sheet Extension injected script loaded");
-	var pdfUrl: string | undefined;
+	var pdfUrls: { [key: string]: string } | undefined;
 
 	window.addEventListener("message", (event) => {
 		if (event.source !== window) return;
 		if (event.data.type === "VGC_SHEET_PDF") {
-			pdfUrl = event.data.pdfFile;
+			pdfUrls = event.data.pdfFiles;
 		}
 	});
 
@@ -63,8 +63,8 @@ const vgcButtonId = "vgc-team-sheet-button";
 
 		button.onclick = (): void => {
 			const vgcData = getVGCSheet(windowCurSetList, windowDex);
-			if (vgcData) {
-				generatePDF(vgcData, pdfUrl, windowCurTeam?.name);
+			if (vgcData && pdfUrls) {
+				generatePDF(vgcData, pdfUrls, windowCurTeam?.name);
 			}
 		};
 

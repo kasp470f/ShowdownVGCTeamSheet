@@ -25,7 +25,10 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: Dex): VGCSheet | und
 		return;
 	}
 
-	var vgcSheetData: VGCSheet = [];
+	var vgcSheetData: VGCSheet = {
+		format: dex.modid,
+		team: []
+	};
 	const isChampionsFormat = dex.modid === "champions";
 
 	for (var pokemon in teamSetList) {
@@ -33,7 +36,7 @@ export function getVGCSheet(teamSetList: PokemonSet[], dex: Dex): VGCSheet | und
 		var species = speciesData[pokemon];
 
 		var vgcPokemon = createVGCSheetPokemon(set, species, isChampionsFormat);
-		vgcSheetData.push(vgcPokemon);
+		vgcSheetData.team.push(vgcPokemon);
 	}
 
 	return vgcSheetData;
@@ -65,6 +68,7 @@ function createVGCSheetPokemon(set: PokemonSet, species: DexSpecies, isChampions
 		moves: set.moves,
 		level: set.level,
 		stats: {} as Stats,
+		nature: set.nature,
 	};
 
 	for (const statKey of StatKeys) {

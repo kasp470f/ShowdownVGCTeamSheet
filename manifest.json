@@ -28,7 +28,8 @@
 		{
 			"resources": [
 				"dist/injected.js",
-				"dist/base.pdf"
+				"dist/sv.pdf",
+				"dist/champions.pdf"
 			],
 			"matches": [
 				"https://play.pokemonshowdown.com/*"
