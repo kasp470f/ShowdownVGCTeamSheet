@@ -1,7 +1,7 @@
+import { getVGCTeam } from "@kasp470f/showdown-to-vgc";
 import { PokemonSet } from "./types/pokemon-set";
 import { Team } from "./types/team";
 import { generatePDF } from "./utils/pdf";
-import { getVGCSheet } from "./utils/sheet-converter";
 
 declare global {
 	interface Window {
@@ -58,13 +58,17 @@ const vgcButtonId = "vgc-team-sheet-button";
 		const windowCurSetList = window.room?.curSetList;
 		const windowCurTeam = window.room?.curTeam;
 		const windowDex = windowCurTeam?.dex;
+		const format = windowDex?.modid;
 
 		if (!windowCurSetList || !windowDex || !isCreateButtonVisible()) return;
 
 		button.onclick = (): void => {
-			const vgcData = getVGCSheet(windowCurSetList, windowDex);
+			const vgcTeam = {
+				team: windowCurSetList
+			}
+			const vgcData = getVGCTeam(vgcTeam, windowCurTeam.gen, format);
 			if (vgcData && pdfUrls) {
-				generatePDF(vgcData, pdfUrls, windowCurTeam?.name);
+				generatePDF(vgcData, pdfUrls, windowCurTeam?.name, format);
 			}
 		};
 

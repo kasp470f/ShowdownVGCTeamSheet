@@ -1,5 +1,5 @@
+import { Format, VGCTeam } from "@kasp470f/showdown-to-vgc";
 import { PDFDocument, PDFForm, PDFTextField } from "pdf-lib";
-import { VGCSheet } from "../types/vgc-sheet";
 
 /**
  * Generates a filled PDF document for VGC (Video Game Championships) team data.
@@ -12,9 +12,9 @@ import { VGCSheet } from "../types/vgc-sheet";
  * @returns A promise that resolves when the PDF has been generated and download started
  * @throws Will log an error to console if the PDF template cannot be loaded
  */
-export async function generatePDF(vgcData: VGCSheet, pdfs: { [key: string]: string }, teamName: string | undefined): Promise<void> {
+export async function generatePDF(vgcTeam: VGCTeam, pdfs: { [key: string]: string }, teamName: string | undefined, format: Format): Promise<void> {
 	let pdfUrl: string | undefined;
-	if (vgcData.format == "champions" && pdfs.champions) {
+	if (format == "champions" && pdfs.champions) {
 		pdfUrl = pdfs.champions;
 	} else {
 		pdfUrl = pdfs.sv;
@@ -26,20 +26,22 @@ export async function generatePDF(vgcData: VGCSheet, pdfs: { [key: string]: stri
 		return;
 	}
 
+	if (!vgcTeam) return;
+
 	await PDFDocument.load(pdfBytes).then((pdfDoc) => {
 		const form = pdfDoc.getForm();
-		for (var i = 0; i < vgcData.team.length; i++) {
-			let poke = vgcData.team[i];
+		for (var i = 0; i < vgcTeam.length; i++) {
+			let poke = vgcTeam[i];
 
-			setMultipleTextFields(form, "Pokémon", i, poke.name);
-			if (vgcData.format === "champions") {
+			setMultipleTextFields(form, "Pokémon", i, poke.name!);
+			if (format === "champions") {
 				setMultipleTextFields(form, "Stat Alignment", i, poke.nature || ""); // Set nature in the stat alignment field if available, otherwise leave it blank
 			} else {
-				setStatTextField(form, `Level`, i, poke.level);
-				setMultipleTextFields(form, "Tera Type", i, poke.tera);
+				setStatTextField(form, `Level`, i, poke.level!);
+				setMultipleTextFields(form, "Tera Type", i, poke.teraType!);
 			}
-			setMultipleTextFields(form, "Ability", i, poke.ability);
-			setMultipleTextFields(form, "Held Item", i, poke.item);
+			setMultipleTextFields(form, "Ability", i, poke.ability!);
+			setMultipleTextFields(form, "Held Item", i, poke.item!);
 
 			setStatTextField(form, `HP`, i, poke.stats.hp);
 			setStatTextField(form, `Atk`, i, poke.stats.atk);
@@ -48,8 +50,8 @@ export async function generatePDF(vgcData: VGCSheet, pdfs: { [key: string]: stri
 			setStatTextField(form, `Sp Def`, i, poke.stats.spd);
 			setStatTextField(form, `Speed`, i, poke.stats.spe);
 
-			for (var j = 0; j < poke.moves.length; j++) {
-				setMultipleTextFields(form, `Move ${j + 1}`, i, poke.moves[j]);
+			for (var j = 0; j < poke.moves!.length; j++) {
+				setMultipleTextFields(form, `Move ${j + 1}`, i, poke.moves![j]);
 			}
 		}
 

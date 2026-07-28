@@ -34,6 +34,7 @@
 		"webpack-dev-server": "^5.2.3"
 	},
 	"dependencies": {
+		"@kasp470f/showdown-to-vgc": "^0.1.10",
 		"pdf-lib": "^1.17.1"
 	}
 }
