@@ -6,7 +6,8 @@
 	"license": "MIT",
 	"main": "src/background.ts",
 	"scripts": {
-		"build": "webpack",
+		"build": "webpack --mode production",
+		"build:dev": "webpack --mode development",
 		"watch": "webpack --watch",
 		"start": "webpack serve",
 		"format": "prettier --write .",
