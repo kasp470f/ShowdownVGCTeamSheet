@@ -23,6 +23,7 @@ on:
 
 permissions:
     contents: write
+    packages: read
 
 jobs:
     release:
@@ -41,6 +42,8 @@ jobs:
                   cache: npm
 
             - name: Install dependencies
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
               run: npm ci
 
             - name: Determine release version
